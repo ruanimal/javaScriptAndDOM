@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <abbr title="People's Republic of China"><em>PRC</em></abbr>
+    <p id="message">dfsfdsf</p>
+<script type="text/javascript">
+function addLoadEvent(func) {
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function'){
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+function moveElement(elementID, final_x, final_y, interval){
+    if (!document.getElementById) return false;
+    if (!document.getElementById(elementID)) return false;
+    var elem = document.getElementById(elementID);
+    if (elem.movement){
+        clearTimeout(elem.movement);
+    }
+    if (!elem.style.top){
+        elem.style.top = '0px';
+    }
+    if (!elem.style.left){
+        elem.style.left = '0px';
+    }
+    var xpos = parseInt(elem.style.left);
+    var ypos = parseInt(elem.style.top);
+    var dist = 0
+    if (xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if (xpos < final_x){
+        dist = Math.ceil((Math.abs(xpos - final_x))/20);
+        xpos += dist;
+    }
+    if (xpos > final_x){
+        dist = Math.ceil((Math.abs(xpos - final_x))/20);
+        xpos -= dist;
+    }
+    if (ypos < final_y){
+        dist = Math.ceil((Math.abs(ypos - final_y))/20);
+        ypos += dist;
+    }
+    if (ypos > final_y){
+        dist = Math.ceil((Math.abs(ypos - final_y))/20);
+        ypos -= dist;
+    }
+    elem.style.left = xpos + 'px';
+    elem.style.top = ypos + 'px';
+    var repeat = "moveElement('"+elementID+"',"+final_x+","+final_y+","+interval+")";
+    // console.log(repeat);
+    elem.movement = setTimeout(repeat, interval);
+}
+function positionMessage(){
+    if (!document.getElementById) return false;
+    if (!document.getElementById('message')) return false;
+    var elem = document.getElementById('message');
+    elem.style.position = 'absolute';
+    elem.style.left = '50px';
+    elem.style.top = '100px';
+    moveElement('message', 125, 25, 20);
+}
+addLoadEvent(positionMessage);
+</script>
+</body>
+</html>
