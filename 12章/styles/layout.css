@@ -12,6 +12,7 @@ body {
     background-position:topleft;
     background-repeat:repeat-x;
     max-width:80em;
+    margin: 0 auto;
 }
 header{
     background-image:url(../images/guitarist.png);
